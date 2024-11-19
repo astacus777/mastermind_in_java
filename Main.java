@@ -5,23 +5,21 @@ public class Main {
     
     
     public static void main(String[] args) {
-        int number = getRandomNumber();
-        String randomStr = String.valueOf(number);
-        int userNumber = 0;
+        
+        String randomStr = getRandomNumber();
         boolean isEquel = false;
-
         System.out.println("Guess the 4-digit number!");
-        //System.out.println("random number: " + number);
+        System.out.println("random number: " + randomStr);
 
         while (!isEquel) {
             String num = GetNumber.getNumber();
             int clue1 = 0;
             int clue2 = 0;
             try {
-                userNumber = Integer.parseInt(num);
-                if (userNumber == number) {
+                int userNumber = Integer.parseInt(num);
+                if (userNumber == Integer.parseInt(randomStr)) {
                     isEquel = true;
-                    System.out.println("Congratulations! You guessed the number: " + number);
+                    System.out.println("Congratulations! You guessed the number: " + randomStr);
                 } else {
                     clue1 = correctNumbers(num, randomStr);
                     clue2 = correctNumbers1(num, randomStr);
@@ -37,9 +35,10 @@ public class Main {
         GetNumber.closeScanner();
     }
 
-    private static int getRandomNumber() {
+    private static String getRandomNumber() {
         Random rand =  new Random();
-        return   rand.nextInt(9999);
+        int number = rand.nextInt(9999);
+        return String.format("%04d", number);
     }
     
     private static int correctNumbers(String num, String str) {
@@ -59,7 +58,5 @@ public class Main {
             }
         }
         return number;
-    }
-
-    
+    }  
 }
