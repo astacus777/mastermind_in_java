@@ -6,14 +6,14 @@ public class GetNumber {
         boolean isValid = false; 
         String guess = "";
         while (!isValid) {
-            System.out.println("What is your number: ");
+            System.out.println("Please give me your best guess(just remember it has to be a 4-digit number!): ");
             guess = scanner.nextLine();
 
             if (guess.matches("\\d{4}")) {
                 isValid = true;
-                System.out.println("Hello, your number is  " + guess);
+                //System.out.println("Well done, your number is  " + guess + " is correct.");
             } else {
-                System.out.println("Invalid input. Try again.");       
+                System.out.println("I'm sorry but this is an Invalid input. Please Try again.");       
             }
         }
         return guess;
