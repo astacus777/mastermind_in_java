@@ -1,62 +1,75 @@
 import java.util.Random;
 
+// Main class to play the game
 public class Mastermind {
-    String randomStr = getRandomNumber();
+        String secretNumber = getRandomNumber();
         boolean isEquel = false;
 
+        // Method to start the game
         public void startGame() {
-            
-        System.out.println("Welcome to Mastermind where you have tu guess a 4-digit number.");
-        System.out.println("random number: " + randomStr);
+
+        // Uncomment to display the secret number for debugging
+        // System.out.println("Random number (for debugging): " + secretNumber);
 
         while (!isEquel) {
-            String num = GetNumber.getNumber();
+            String usersGuess = UserInput.getNumber();
             int clue1 = 0;
             int clue2 = 0;
             try {
-                int userNumber = Integer.parseInt(num);
-                if (userNumber == Integer.parseInt(randomStr)) {
+                // Check if the user's guess matches the secret number
+                int userNumber = Integer.parseInt(usersGuess);
+                if (userNumber == Integer.parseInt(secretNumber)) {
                     isEquel = true;
-                    System.out.println("Congratulations! You guessed the number: " + randomStr);
+                    System.out.println("Congratulations! You guessed the number: " + secretNumber);
                 } else {
-                    clue1 = correctNumbers(num, randomStr);
-                    clue2 = correctNumbers1(num, randomStr);
-                    System.out.println("Unfortunatelly, this is a Wrong guess! Please try again.");
+                    // Provide clues
+                    clue1 = correcPlacedtNumbers(usersGuess, secretNumber);
+                    clue2 = correctNumbers(usersGuess, secretNumber);
+                    System.out.println("Unfortunately, this is a wrong guess! Please try again.");
                     System.out.println("Here are some clues: ");
-                    System.out.println("Number of correct digits in correct places: " + clue1);
-                    System.out.println("Number of correct digits:                   " + clue2);
+                    System.out.println(" - Correct digits in correct places: " + clue1);
+                    System.out.println(" - Correct digits in any position:   " + clue2);
                 }
             }
             catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a 4-digit number.");
+                System.out.println("ERROR.");
             }
         }
-        GetNumber.closeScanner();
+        
     }
 
+    // Generates a random secret number
      private static String getRandomNumber() {
         Random rand =  new Random();
         int number = rand.nextInt(10000);
         return String.format("%04d", number);
     }
     
-    private static int correctNumbers(String num, String str) {
+    // Function to check the number of correct digits in the correct positions
+    private static int correcPlacedtNumbers(String user, String secret) {
         int number = 0;
-        for (int i = 0; i< num.length(); i++) {
-            if (num.charAt(i) == str.charAt(i)) {
+        for (int i = 0; i< user.length(); i++) {
+            if (user.charAt(i) == secret.charAt(i)) {
                 number++;
             }
         }
         return number;
     }
-    private static int correctNumbers1(String num, String str) {
+
+    // Function to check the total number of guessed digits, regardless of position
+    private static int correctNumbers(String user, String secret) {
         int number = 0;
-        for (int i = 0; i< num.length(); i++) {
-            if (num.charAt(0) == str.charAt(i) || num.charAt(1) == str.charAt(i) || num.charAt(2) == str.charAt(i) || num.charAt(3) == str.charAt(i)) {
-                number++;
+        boolean[] arr = new boolean[user.length()];;
+
+        for (int i=0; i<user.length(); i++){
+            for (int j=0; j<secret.length(); j++ ) {
+                if (user.charAt(i) == secret.charAt(j)  && !arr[j]) {
+                    arr[j] = true;
+                    number++;
+                    break;
+                }
             }
         }
         return number;
     }  
-    
 }
