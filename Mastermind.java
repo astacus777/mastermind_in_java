@@ -9,7 +9,7 @@ public class Mastermind {
         public void startGame() {
 
         // Uncomment to display the secret number for debugging
-        System.out.println("Random number (for debugging): " + secretNumber);
+        // System.out.println("Random number (for debugging): " + secretNumber);
         int steps = 0;
 
         while (!isEquel) {

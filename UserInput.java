@@ -11,13 +11,13 @@ public class UserInput {
         // Checks if the user input is meeting criteria
         while (!isValid) {
             try {
-                System.out.println("Please give me your best guess(just remember it has to be a 4-digit number!): ");
+                System.out.println("Please give me your best guess (just remember it has to be a 4-digit number!): ");
                 guess = scanner.nextLine().trim();
     
                 if (guess.matches("\\d{4}")) {
                     isValid = true;
                 } else {
-                    System.out.println("I'm sorry but this is an Invalid input. Please enter exactly a 4-digit number.");
+                    System.out.println("I'm sorry but this is an Invalid input.");
                 }
             } catch (Exception e) {
                 System.out.println("An error occurred while reading your input. Please try again.");
